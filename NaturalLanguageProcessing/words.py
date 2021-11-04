@@ -1,4 +1,6 @@
 ENGLISH_STOP_WORDS = set([
+    '10',
+    'br',
     'a',
     'about',
     'above',
