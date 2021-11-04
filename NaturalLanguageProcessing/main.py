@@ -27,11 +27,11 @@ def prepData():
 
 
 reviews, result = prepData()
-countVectorizer = CountVectorizer(analyzer='word', max_features=100, stop_words=ENGLISH_STOP_WORDS, ngram_range=(2,2))
+countVectorizer = CountVectorizer(analyzer='word', max_features=200, stop_words=ENGLISH_STOP_WORDS)
 X = countVectorizer.fit_transform(reviews)
 #print(X)
 print(countVectorizer.get_feature_names_out())
 result = X.toarray()
-write(result)
-print(result)
+#write(result)
+#print(result)
 
