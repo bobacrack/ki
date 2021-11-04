@@ -1,5 +1,5 @@
 import csv
-import re
+from words import ENGLISH_STOP_WORDS
 from sklearn.feature_extraction.text import CountVectorizer
 
 illegal = ['and','zombie']
@@ -26,7 +26,7 @@ def prepData():
 
 
 reviews, result = prepData()
-countVectorizer = CountVectorizer(analyzer='word', max_features=100)
+countVectorizer = CountVectorizer(analyzer='word', max_features=100, stop_words=ENGLISH_STOP_WORDS)
 X = countVectorizer.fit_transform(reviews)
 #print(X)
 print(countVectorizer.get_feature_names_out())
