@@ -17,10 +17,29 @@ def stemSentence(sentence):
         stem_sentence.append(" ")
     return "".join(stem_sentence)
 
-def write(result):
-    with open("NaturalLanguageProcessing/data/F500_N22_Lemma.csv", "w", encoding="UTF-8") as f:
+def writeCSV(reviews, res):
+    with open('NaturalLanguageProcessing/data/F100_N22_Normal.csv', 'w') as f:
         writer = csv.writer(f)
-        writer.writerow(result)
+        for i in range(len(reviews)):
+            row = ""
+            for word in word_tokenize(reviews[i]):
+                row += word + ','
+            row += str(res[i])
+            print(row)
+            f.write(row)
+
+def writeCSV2(reviews, res, features):
+    with open('NaturalLanguageProcessing/data/F100_N22_Normal.csv', 'w') as f:
+        writer = csv.writer(f)
+        for feature in features:
+            f.write(feature + ",")
+        f.write("evaluation\n")
+        for i in range(len(reviews)):
+            row = ""
+            for el in reviews[i]:
+                row += str(el) + ","
+            row += res[i] + "\n"
+            f.write(row)
 
 
 def prepData():
@@ -31,7 +50,7 @@ def prepData():
             text = line.strip()
             listDoc = text.split(",")
             listDoc[0].replace("'", "")
-            listDoc[0] = stemSentence(listDoc[0])
+            #listDoc[0] = stemSentence(listDoc[0])
             reviews.append(listDoc[0])
             res.append(listDoc[1])
 
@@ -43,10 +62,11 @@ def prepData():
 
 
 reviews, result = prepData()
-countVectorizer = CountVectorizer(analyzer='word', max_features=5000, stop_words=ENGLISH_STOP_WORDS, ngram_range=(2,2))
+countVectorizer = CountVectorizer(analyzer='word', max_features=100, stop_words=ENGLISH_STOP_WORDS)
 X = countVectorizer.fit_transform(reviews)
-print(countVectorizer.get_feature_names_out())
-result = X.toarray()
-write(result)
+features = countVectorizer.get_feature_names_out()
+xresult = X.toarray()
+print(xresult[0])
+writeCSV2(xresult, result, features)
 #print(result)
 
