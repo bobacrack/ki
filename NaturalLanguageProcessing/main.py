@@ -19,7 +19,7 @@ def stemSentence(sentence):
 
 
 def writeCSV2(reviews, res, features):
-    with open('NaturalLanguageProcessing/data/F2,200_N22_Normal.csv', 'w') as f:
+    with open('NaturalLanguageProcessing/data/F500_22.csv', 'w') as f:
         writer = csv.writer(f)
         for feature in features:
             f.write(feature + ",")
@@ -52,7 +52,7 @@ def prepData():
 
 
 reviews, result = prepData()
-countVectorizer = CountVectorizer(analyzer='word', max_features=100, stop_words=ENGLISH_STOP_WORDS, ngram_range=(2,2))
+countVectorizer = CountVectorizer(analyzer='word', max_features=500, stop_words=ENGLISH_STOP_WORDS, ngram_range=(2,2))
 X = countVectorizer.fit_transform(reviews)
 features = countVectorizer.get_feature_names_out()
 xresult = X.toarray()
